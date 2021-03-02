@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class FruitBasketApplication {
     public static void main(String[] args) {
@@ -65,7 +66,7 @@ public class FruitBasketApplication {
         System.out.println("\nTotal types of fruit:");
         //printTotalTypes
         System.out.println("\nOldest fruit & age:");
-        //printOldestFruit
+        printFruitsByInStoreDays(fruitBasketService, daysOld);
         System.out.println("\nThe number of each type of fruit in descending order:");
         //printNumberOfFruitInTypeDesc
         System.out.println("\nThe various characteristics (count, color, shape, etc.) of each fruit by type:");
@@ -76,5 +77,23 @@ public class FruitBasketApplication {
         int total = fruitBasketService.countAllFruit();
 
         System.out.println(total);
+    }
+
+    public void printFruitsByInStoreDays(FruitBasketService fruitBasketService, int inStoreDays) {
+        boolean foundFruit = false;
+
+        //Get names
+        Set<String> uniqueFruitNameSet = fruitBasketService.findAllFruitByType();
+
+        for (String fruitName : uniqueFruitNameSet) {
+            int count = fruitBasketService.countAllFruitByDaysOld(fruitName, inStoreDays);
+
+            if (count > 0) {
+                System.out.println("The age of each fruit: " +
+                                "\n" + fruitName + ": " + count + " days old."
+                        );
+                foundFruit = true;
+            }
+        }
     }
 }
