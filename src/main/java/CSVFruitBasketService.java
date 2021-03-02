@@ -29,7 +29,7 @@ public class CSVFruitBasketService implements FruitBasketService{
                     FRUIT_CHARACTERISTIC_2
             };
 
-    private String csvPath = null;
+    private String csvPath;
 
     public CSVFruitBasketService(String csvPath) {
         if (csvPath == null) {
@@ -37,6 +37,7 @@ public class CSVFruitBasketService implements FruitBasketService{
         }
         this.csvPath = csvPath;
     }
+
     List<Fruit> readFruitCatalog = new ArrayList<>(FruitBasketApplication.getFruitDetails("Catalog/basket.csv"));
 
     @Override

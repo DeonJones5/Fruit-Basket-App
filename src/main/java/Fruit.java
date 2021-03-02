@@ -50,9 +50,9 @@ public class Fruit {
     @Override
     public String toString() {
         return getClass().getSimpleName() +
-                " [name = " + name +
-                ", daysOld = " + daysOld +
-                ", characteristic1 = " + characteristic1 +
-                ", characteristic2 = " + characteristic2 + "]";
+                " [name: " + name +
+                ", daysOld: " + daysOld +
+                ", characteristic1: " + characteristic1 +
+                ", characteristic2: " + characteristic2 + "]";
     }
 }

@@ -14,14 +14,25 @@ public class FruitBasketApplication {
         for (Fruit fruits : fruitList) {
             System.out.println(fruits);
         }
+        System.out.println();
 
-        String csvPath = args[0];
-        FruitBasketService fruitBasketService = new CSVFruitBasketService(csvPath);
-        FruitBasketApplication fruitBasketApplication = new FruitBasketApplication();
-        fruitBasketApplication.printSummary(fruitBasketService, inStoreDays);
+        if ( (args.length <= 0)) {
+            System.out.println("Provide a valid CSV file.");
+        } else {
 
+            String csvPath = args[0];
 
-
+            if (args.length > 1) {
+                try {
+                    inStoreDays = Integer.parseInt(args[1]);
+                } catch (Exception e) {
+                    System.err.println("Invalid instore days " + e.getMessage());
+                }
+            }
+            FruitBasketService fruitBasketService = new CSVFruitBasketService(csvPath);
+            FruitBasketApplication fruitBasketApplication = new FruitBasketApplication();
+            fruitBasketApplication.printSummary(fruitBasketService, inStoreDays);
+        }
     }
 
     //Creating Fruit List
@@ -64,7 +75,7 @@ public class FruitBasketApplication {
         System.out.println("\nTotal number of fruit:");
         printTotal(fruitBasketService);
         System.out.println("\nTotal types of fruit:");
-        //printTotalTypes
+        printTypeOfFruit(fruitBasketService);
         System.out.println("\nOldest fruit & age:");
         printFruitsByInStoreDays(fruitBasketService, daysOld);
         System.out.println("\nThe number of each type of fruit in descending order:");
@@ -78,8 +89,13 @@ public class FruitBasketApplication {
 
         System.out.println(total);
     }
+    private void printTypeOfFruit(FruitBasketService fruitBasketService) {
+        int fruitCountByType = fruitBasketService.countAllFruitByType();
+        System.out.println(fruitCountByType);
+    }
 
-    public void printFruitsByInStoreDays(FruitBasketService fruitBasketService, int inStoreDays) {
+
+    private void printFruitsByInStoreDays(FruitBasketService fruitBasketService, int inStoreDays) {
         boolean foundFruit = false;
 
         //Get names
@@ -89,9 +105,8 @@ public class FruitBasketApplication {
             int count = fruitBasketService.countAllFruitByDaysOld(fruitName, inStoreDays);
 
             if (count > 0) {
-                System.out.println("The age of each fruit: " +
-                                "\n" + fruitName + ": " + count + " days old."
-                        );
+                System.out.println(count + " " + fruitName + ":" + inStoreDays + " days old.");
+
                 foundFruit = true;
             }
         }
