@@ -7,9 +7,9 @@ public interface FruitBasketService {
 
     public List<Fruit> findAllFruitsByName(String name);
 
-    public Set<Fruit> findAllFruitByType();
+    public Set<String> findAllFruitByType();
 
-    public List<Fruit> findAllFruitByAge(String name, int daysOld);
+    public List<Fruit> findAllFruitByAge(String name, Integer daysInStore);
 
     public Integer countAllFruit();
 

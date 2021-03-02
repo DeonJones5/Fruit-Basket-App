@@ -24,7 +24,7 @@ public class FruitBasketApplication {
     }
 
     //Creating Fruit List
-    private static List<Fruit> getFruitDetails(String file) {
+    public static List<Fruit> getFruitDetails(String file) {
         List<Fruit> fruitList = new ArrayList<>();
         //This will load the file
         Path pathToFile = Paths.get(file);
@@ -46,6 +46,8 @@ public class FruitBasketApplication {
 
     private static Fruit getOneFruit(String[] attributes) {
         String name = attributes[0];
+        //For some reason not allowing me to parse to Int so I turned days into String instead
+//        int daysOld = Integer.parseInt(attributes[1]);
         String daysOld = attributes[1];
         String characteristic1 = attributes[2];
         String characteristic2 = attributes[3];
