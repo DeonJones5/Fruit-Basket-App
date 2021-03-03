@@ -8,7 +8,6 @@ public class Fruit {
     }
 
     public Fruit(String name, String daysOld, String characteristic1, String characteristic2) {
-        super();
         this.name = name;
         this.daysOld = daysOld;
         this.characteristic1 = characteristic1;

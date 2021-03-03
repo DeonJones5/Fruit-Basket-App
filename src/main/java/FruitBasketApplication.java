@@ -3,9 +3,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class FruitBasketApplication {
     public static void main(String[] args) {
@@ -79,12 +77,30 @@ public class FruitBasketApplication {
         System.out.println("\nOldest fruit & age:");
         printFruitsByInStoreDays(fruitBasketService, daysOld);
         System.out.println("\nThe number of each type of fruit in descending order:");
-        //printNumberOfFruitInTypeDesc
+        printTypeAndSortedCount(fruitBasketService);
         System.out.println("\nThe various characteristics (count, color, shape, etc.) of each fruit by type:");
         //printVariousCharacteristics
     }
 
-    public void printTotal(FruitBasketService fruitBasketService) {
+    private void printTypeAndSortedCount(FruitBasketService fruitBasketService) {
+        //Key = Type/name, Value = count
+        Map<String, Integer> typeCount = new HashMap<>();
+
+        //Get names
+        Set<String> uniqueFruitNames = fruitBasketService.findAllFruitByType();
+
+        for (String fruitType : uniqueFruitNames) {
+            typeCount.put(fruitType, fruitBasketService.countAllFruitByName(fruitType));
+        }
+
+        Map<String, Integer> sortedMap = sortByComparator(typeCount);
+
+        for (Object key : sortedMap.keySet()) {
+            System.out.println(key + ":" + sortedMap.get(key));
+        }
+    }
+
+    private void printTotal(FruitBasketService fruitBasketService) {
         int total = fruitBasketService.countAllFruit();
 
         System.out.println(total);
@@ -92,6 +108,24 @@ public class FruitBasketApplication {
     private void printTypeOfFruit(FruitBasketService fruitBasketService) {
         int fruitCountByType = fruitBasketService.countAllFruitByType();
         System.out.println(fruitCountByType);
+    }
+
+    private Map<String, Integer> sortByComparator(Map<String, Integer> unsortMap) {
+        //Convert Map to List
+        List<Map.Entry<String, Integer>> list = new LinkedList<>(unsortMap.entrySet());
+
+        //Sort with comparator, to compare the Map values in descending order
+        Collections.sort(list, Collections.reverseOrder((o1, o2) -> {
+            return (o1.getValue()).compareTo(o2.getValue());
+        }));
+
+//        Convert sorted map back to a Map
+        Map<String, Integer> sortedMap = new LinkedHashMap<>();
+        for (Iterator<Map.Entry<String, Integer>> it = list.iterator(); it.hasNext();) {
+            Map.Entry<String, Integer> entry = it.next();
+            sortedMap.put(entry.getKey(), entry.getValue());
+        }
+        return sortedMap;
     }
 
 

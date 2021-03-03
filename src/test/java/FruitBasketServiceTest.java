@@ -55,4 +55,15 @@ class FruitBasketServiceTest {
 
     }
 
+    @Test
+    void countAllFruitByType() {
+        FruitBasketService fruitBasketService = new CSVFruitBasketService(TEST_CSV_PATH);
+        Assertions.assertNotNull(fruitBasketService);
+        Integer fruits = fruitBasketService.countAllFruitByType();
+
+        System.out.println("Total " + fruits + " types of fruits found");
+
+    }
+
+
 }
