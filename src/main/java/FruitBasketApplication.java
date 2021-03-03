@@ -7,6 +7,7 @@ import java.util.*;
 
 public class FruitBasketApplication {
     public static void main(String[] args) {
+        // By Default, this is 3.
         int inStoreDays = 3;
         List<Fruit> fruitList = getFruitDetails("Catalog/basket.csv");
         for (Fruit fruits : fruitList) {
@@ -16,6 +17,8 @@ public class FruitBasketApplication {
 
         if ( (args.length <= 0)) {
             System.out.println("Provide a valid CSV file.");
+            System.out.println("For example:");
+            System.out.println("java FruitBasketApplication basket.csv");
         } else {
 
             String csvPath = args[0];
