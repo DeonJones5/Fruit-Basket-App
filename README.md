@@ -10,7 +10,6 @@ mvn clean package -Dmaven.test.skip
 
 This command will generate fruit-basket.jar in target folder
 
-(I have already created this and copied to the Catalog folder)
 
 # II) Run Application from command line
 --------------------------------------------
